@@ -2,8 +2,6 @@ import React, { useReducer } from 'react';
 import GameContext from './gameContext';
 import GameReducer from './gameReducer';
 
-import { scaleLinear } from 'd3-scale';
-
 import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
 
 const GameState = props => {
@@ -13,25 +11,9 @@ const GameState = props => {
     prevNodes: [],
     playerPos: 0,
 
-    width: 970,
-    height: 2030,
-    NUM_POINTS: 5,
-    mapStyles: {
-      position: 'relative'
-    },
-    svgStyles: {
-      position: 'absolute',
-      top: 35,
-      left: 20,
-      right: 0,
-      bottom: 0
-    },
-    xScale: scaleLinear()
-      .domain([0, 100])
-      .range([0, 970]),
-    yScale: scaleLinear()
-      .domain([0, 100])
-      .range([0, 2030])
+    width: 1036,
+    height: 553,
+    NUM_POINTS: 25,
   };
 
   const [state, dispatch] = useReducer(GameReducer, initialState);
@@ -68,10 +50,6 @@ const GameState = props => {
         height: state.height,
         width: state.width,
         NUM_POINTS: state.NUM_POINTS,
-        mapStyles: state.mapStyles,
-        svgStyles: state.svgStyles,
-        xScale: state.xScale,
-        yScale: state.yScale,
 
         initGame,
         setDone,
