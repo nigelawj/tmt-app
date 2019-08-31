@@ -1,30 +1,14 @@
 import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
 
 export default (state, action) => {
-  let { width, height, nodes, prevNodes, playerPos, NUM_POINTS } = state;
+  let { width, height, nodes, prevNodes, links, playerPos, NUM_POINTS } = state;
 
   switch (action.type) {
     case INIT_GAME:
-      const randomPoint = () => {
-        let x = Math.floor(Math.random() * (width - 0 + 1) + 5);
-        let y = Math.floor(Math.random() * (height - 0 + 1) + 5);
+      const randomPoint = (width, height) => {
+        let x = Math.floor(Math.random() * (95 - 5 + 1) + 5);
+        let y = Math.floor(Math.random() * (95 - 5 + 1) + 5);
         //let done = (Math.random() < 0.5); // boolean
-
-        // if (nodes === []) {
-        //   return {
-        //     x: x,
-        //     y: y,
-        //     done: false
-        //   };
-        // }
-
-        // // Check through all points already created, to ensure no two points overlap
-        // for (let i = 0; i<nodes.length; i++){
-        //   if (Math.abs(x - nodes[i].x) < 20 || Math.abs(y - nodes[i].y) < 20) {
-        //     return null;
-        //   }
-        // }
-
         return {
           x: x,
           y: y,
@@ -33,27 +17,33 @@ export default (state, action) => {
       };
 
       for (let i = 0; i < NUM_POINTS; i++) {
-        // let temp = null;
-        // while (temp === null){
-        //   temp = randomPoint();
-        // }
-        // nodes[i] = temp;
-        nodes[i] = randomPoint();
+        nodes[i] = randomPoint(width, height);
         if (i > 0) {
-          prevNodes[i] = nodes[i-1];
+          prevNodes[i - 1] = nodes[i];
         }
-			}
-			prevNodes[0] = nodes[NUM_POINTS - 1];
+      }
+      prevNodes.push(nodes[0]);
 
       console.log(nodes);
       console.log(prevNodes);
+
+      for (let i = 0; i < NUM_POINTS - 1; i++) {
+        links[i] = {
+          s: i,
+          d: i + 1
+        };
+      }
+			console.log(links);
 			
 			return {
 				...state,
 				nodes: nodes,
 				prevNodes: prevNodes,
+				links: links
 			};
     case SET_DONE:
+      alert('Clicked!');
+
       nodes[action.i].done = true;
 
       return {
@@ -62,7 +52,7 @@ export default (state, action) => {
       };
 
     case RESET_DONE:
-      for (let i = 0; i < NUM_POINTS; i++) {
+      for (let i = 0; i < 5; i++) {
         nodes[i].done = false;
       }
 
