@@ -9,8 +9,6 @@ const Button = ({ i }) => {
     prevNodes,
     playerPos,
     NUM_POINTS,
-    xScale,
-    yScale,
 
     initGame,
     setDone,
@@ -19,8 +17,6 @@ const Button = ({ i }) => {
   } = gameContext;
 
   useEffect(() => {
-    // setX(i);
-    // setY(i);
     // eslint-disable-next-line
   }, []);
 
@@ -46,26 +42,24 @@ const Button = ({ i }) => {
         <circle
           className={i}
           key={i}
-          cx={xScale(nodes[i].x)}
-          cy={yScale(nodes[i].y)}
+          cx={nodes[i].x}
+          cy={nodes[i].y}
           r="15"
           fill={nodes[i].done === true ? 'cyan' : 'grey'}
           onClick={check}
-          //onMouseEnter={this.setDone}
         />
-        <text x={xScale(nodes[i].x)} y={yScale((nodes[i].y) + 0.2)} textAnchor="middle">
-          {i}
+        <text x={nodes[i].x} y={(nodes[i].y) + 0.2} textAnchor="middle" onClick={check}>
+          {i+1}
         </text>
       </Fragment>
       <Fragment>
         <line
           key={i}
-          x1={xScale(prevNodes[i].x)}
-          y1={yScale(prevNodes[i].y)}
-          x2={xScale(nodes[i].x)}
-          y2={yScale(nodes[i].y)}
-          //strokeWidth={5}
-          strokeWidth={nodes[i].done === true ? 5 : 0}
+          x1={prevNodes[i].x}
+          y1={prevNodes[i].y}
+          x2={nodes[i].x}
+          y2={nodes[i].y}
+          strokeWidth={(i>0 && nodes[i].done) === true ? 5 : 0}
           stroke={'cyan'}
         />
       </Fragment>
