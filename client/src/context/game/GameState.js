@@ -6,6 +6,7 @@ import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
 
 const GameState = props => {
   const initialState = {
+    nodeList: [],
     nodes: [],
     links: [],
     prevNodes: [],
@@ -21,7 +22,7 @@ const GameState = props => {
   // Initialise game
   const initGame = () => {
     dispatch({ type: INIT_GAME });
-    resetDone();
+    //resetDone();
   };
 
   // Move playerpos
@@ -42,6 +43,7 @@ const GameState = props => {
   return (
     <GameContext.Provider
       value={{
+        nodeList: state.nodeList,
         nodes: state.nodes,
         links: state.links,
         prevNodes: state.prevNodes,

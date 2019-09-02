@@ -1,29 +1,48 @@
 import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
 
 export default (state, action) => {
-  let { width, height, nodes, prevNodes, playerPos, NUM_POINTS } = state;
+  let { width, height, nodeList, nodes, prevNodes, playerPos, NUM_POINTS } = state;
 
   switch (action.type) {
     case INIT_GAME:
+      // const initLists = () => {
+      //   // Initialise all possible points.
+      //   // Points are ensured to not overlap
+      //   let i=0;
+      //   for (let x=30; x<width; x+=29) {
+      //     for (let y=30; y<height; y+=31) {
+      //       nodeList[i] = {
+      //         x: x,
+      //         y: y,
+      //         done: false
+      //       };
+      //       i++;
+      //     }
+      //   }    
+      // }
+
+      // const choosePoints = () => {
+      //   // Initialise indexes of points chosen
+      //   let j = [];
+      //   for (let i=0; i<NUM_POINTS; i++) {
+      //     console.log(Math.floor(Math.random() * (nodeList.length - 0 + 1)));
+      //     j[i] = Math.floor(Math.random() * (nodeList.length - 0 + 1));
+      //   }
+
+      //   // Initialise nodes and prevNodes arrays
+      //   for (let i=0; i<j.length; i++) {
+      //     nodes[i] = nodeList[j[i]];
+      //     if (i > 0) {
+      //       prevNodes[i] = nodes[i-1];
+      //     }
+      //   }
+      //   prevNodes[0] = nodes[NUM_POINTS - 1];
+      // }
+
       const randomPoint = () => {
-        let x = Math.floor(Math.random() * (width - 0 + 1) + 5);
-        let y = Math.floor(Math.random() * (height - 0 + 1) + 5);
+        let x = Math.floor(Math.random() * (width - 100 + 1) + 50);
+        let y = Math.floor(Math.random() * (height - 100 + 1) + 50);
         //let done = (Math.random() < 0.5); // boolean
-
-        // if (nodes === []) {
-        //   return {
-        //     x: x,
-        //     y: y,
-        //     done: false
-        //   };
-        // }
-
-        // // Check through all points already created, to ensure no two points overlap
-        // for (let i = 0; i<nodes.length; i++){
-        //   if (Math.abs(x - nodes[i].x) < 20 || Math.abs(y - nodes[i].y) < 20) {
-        //     return null;
-        //   }
-        // }
 
         return {
           x: x,
@@ -33,17 +52,15 @@ export default (state, action) => {
       };
 
       for (let i = 0; i < NUM_POINTS; i++) {
-        // let temp = null;
-        // while (temp === null){
-        //   temp = randomPoint();
-        // }
-        // nodes[i] = temp;
         nodes[i] = randomPoint();
         if (i > 0) {
           prevNodes[i] = nodes[i-1];
         }
 			}
-			prevNodes[0] = nodes[NUM_POINTS - 1];
+      prevNodes[0] = nodes[NUM_POINTS - 1];
+      
+      // initLists();
+      // choosePoints();
 
       console.log(nodes);
       console.log(prevNodes);

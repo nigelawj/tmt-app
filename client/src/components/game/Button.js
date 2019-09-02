@@ -23,6 +23,7 @@ const Button = ({ i }) => {
   const check = () => {
     if (i !== playerPos) {
       alert('failed. wrong one.');
+      // TO-DO: Change to increment numErrors
       resetDone();
     } else if (playerPos === NUM_POINTS - 1) {
       //reached end + final choice is correct
