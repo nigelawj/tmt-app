@@ -1,8 +1,9 @@
-// TMT
+// results
 export const ADD_RESULT = 'ADD_RESULT';
 export const DELETE_RESULT = 'DELETE_RESULT';
 export const EXPORT_RESULT = 'EXPORT_RESULT';
 export const ADD_PATIENT = 'ADD_PATIENT';
+export const RESULT_ERROR = 'RESULT_ERROR';
 
 // game
 export const INIT_GAME = 'INIT_GAME';

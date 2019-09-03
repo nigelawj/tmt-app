@@ -1,10 +1,10 @@
 import React, { Fragment, useContext } from 'react';
-import TmtContext from '../../context/TMT/tmtContext';
+import ResultsContext from '../../context/results/resultsContext';
 import ResultItem from './ResultItem';
 
 const Results = () => {
-  const tmtContext = useContext(TmtContext);
-  const { results } = tmtContext;
+  const resultsContext = useContext(ResultsContext);
+  const { results } = resultsContext;
 
   return (
     <Fragment>

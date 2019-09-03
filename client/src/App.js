@@ -13,10 +13,12 @@ import Game from './components/pages/Game';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 
-import TmtState from './context/TMT/TMTState';
+import ResultsState from './context/results/ResultsState';
 import GameState from './context/game/GameState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
+
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import setAuthToken from './utils/setAuthToken';
 if (localStorage.token) {
@@ -26,7 +28,7 @@ if (localStorage.token) {
 const App = () => {
   return (
     <AuthState>
-      <TmtState>
+      <ResultsState>
         <GameState>
           <AlertState>
             <Router>
@@ -36,7 +38,7 @@ const App = () => {
                 <div className="container">
                   <Alerts></Alerts>
                   <Switch>
-                    <Route exact path="/" component={Home} />
+                    <PrivateRoute exact path="/" component={Home} />
                     <Route exact path="/about" component={About} />
                     <Route exact path="/game" component={Game} />
                     <Route exact path="/register" component={Register} />
@@ -47,7 +49,7 @@ const App = () => {
             </Router>
           </AlertState>
         </GameState>
-      </TmtState>
+      </ResultsState>
     </AuthState>
   );
 };

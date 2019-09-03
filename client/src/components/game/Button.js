@@ -69,30 +69,3 @@ const Button = ({ i }) => {
 };
 
 export default Button;
-
-// import React, { Component, Fragment } from 'react';
-
-// class Button extends Component {
-//   state = {
-//     x: 0,
-//     y: 0,
-//     done: false
-//   };
-
-//   componentDidMount = () => {
-//     const { i, nodes } = this.props;
-//     this.setState({ x: nodes[i].x });
-//     this.setState({ y: nodes[i].y });
-//   };
-
-//   render() {
-//     const  = this.props;
-//     const { done } = this.state;
-
-//     return (
-
-//     );
-//   }
-// }
-
-// export default Button;

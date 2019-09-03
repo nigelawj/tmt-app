@@ -1,7 +1,15 @@
 import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
 
 export default (state, action) => {
-  let { width, height, nodeList, nodes, prevNodes, playerPos, NUM_POINTS } = state;
+  let {
+    width,
+    height,
+    nodeList,
+    nodes,
+    prevNodes,
+    playerPos,
+    NUM_POINTS
+  } = state;
 
   switch (action.type) {
     case INIT_GAME:
@@ -18,7 +26,7 @@ export default (state, action) => {
       //       };
       //       i++;
       //     }
-      //   }    
+      //   }
       // }
 
       // const choosePoints = () => {
@@ -54,22 +62,22 @@ export default (state, action) => {
       for (let i = 0; i < NUM_POINTS; i++) {
         nodes[i] = randomPoint();
         if (i > 0) {
-          prevNodes[i] = nodes[i-1];
+          prevNodes[i] = nodes[i - 1];
         }
-			}
+      }
       prevNodes[0] = nodes[NUM_POINTS - 1];
-      
+
       // initLists();
       // choosePoints();
 
       console.log(nodes);
       console.log(prevNodes);
-			
-			return {
-				...state,
-				nodes: nodes,
-				prevNodes: prevNodes,
-			};
+
+      return {
+        ...state,
+        nodes: nodes,
+        prevNodes: prevNodes
+      };
     case SET_DONE:
       nodes[action.i].done = true;
 
