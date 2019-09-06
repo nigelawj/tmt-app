@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import GameContext from './gameContext';
 import GameReducer from './gameReducer';
 
-import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
+import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS, INC_ERRORS, CHECKPOINT, END_GAME, START_GAME } from '../types';
 
 const GameState = props => {
   const initialState = {
@@ -10,11 +10,15 @@ const GameState = props => {
     nodes: [],
     links: [],
     prevNodes: [],
+
     playerPos: 0,
+    numErrors: 0,
+    rawTimings: [],
+    end: false,
 
     width: 1036,
     height: 553,
-    NUM_POINTS: 25,
+    numPoints: 4,
   };
 
   const [state, dispatch] = useReducer(GameReducer, initialState);
@@ -22,7 +26,6 @@ const GameState = props => {
   // Initialise game
   const initGame = () => {
     dispatch({ type: INIT_GAME });
-    //resetDone();
   };
 
   // Move playerpos
@@ -40,6 +43,26 @@ const GameState = props => {
     dispatch({ type: RESET_DONE });
   };
 
+  // Inc Errors - Increments numErrors
+  const incErrors = () => {
+    dispatch({ type: INC_ERRORS });
+  }
+
+  // Checkpoint
+  const checkpoint = (i) => {
+    dispatch({ type: CHECKPOINT, i: i });
+  }
+
+  // End game - set boolean to indicate game end - TRUE
+  const endGame = () => {
+    dispatch({ type: END_GAME });
+  }
+
+  // Start game - set boolean to indicate game start - FALSE
+  const startGame = () => {
+    dispatch({ type: START_GAME });
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -48,15 +71,22 @@ const GameState = props => {
         links: state.links,
         prevNodes: state.prevNodes,
         playerPos: state.playerPos,
+        numErrors: state.numErrors,
 
         height: state.height,
         width: state.width,
-        NUM_POINTS: state.NUM_POINTS,
+        numPoints: state.numPoints,
+        rawTimings: state.rawTimings,
+        end: state.end,
 
         initGame,
         setDone,
         resetDone,
-        movePos
+        movePos,
+        incErrors,
+        checkpoint,
+        endGame,
+        startGame
       }}
     >
       {props.children}

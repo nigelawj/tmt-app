@@ -11,6 +11,14 @@ const ResultSchema = mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  timings: {
+    type: [],
+    default: []
+  },
+  numErrors: {
+    type: Number,
+    default: 0
   }
 });
 

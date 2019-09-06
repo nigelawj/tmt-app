@@ -9,11 +9,14 @@ const Navbar = ({ title, icon }) => {
 
   const onLogout = () => {
     logout();
-  }
+  };
 
   const authLinks = (
     <Fragment>
-      <li>Hello {user && user.name} </li>
+      <li>
+        <Link to="/">View Results</Link>
+      </li>
+      <li>Logged in as {user && user.name}!</li>
       <li>
         <a onClick={onLogout} href="#!">
           <i className="fas fa-sign-out-alt"></i>{' '}
@@ -40,15 +43,12 @@ const Navbar = ({ title, icon }) => {
       </h1>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/game">Game</Link>
         </li>
         <li>
           <Link to="/about">About</Link>
         </li>
-        <li>
-          <Link to="/game">Game</Link>
-        </li>
-        <li>{isAuthenticated ? authLinks : guestLinks}</li>
+        {isAuthenticated ? authLinks : guestLinks}
       </ul>
     </div>
   );
@@ -61,7 +61,7 @@ Navbar.propTypes = {
 
 Navbar.defaultProps = {
   title: 'TMT App 25',
-  icon: 'fas fa-id-card-alt'
+  icon: 'fas fa-dot-circle'
 };
 
 export default Navbar;

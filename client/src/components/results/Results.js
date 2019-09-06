@@ -1,6 +1,8 @@
 import React, { Fragment, useContext } from 'react';
-import ResultsContext from '../../context/results/resultsContext';
+
 import ResultItem from './ResultItem';
+
+import ResultsContext from '../../context/results/resultsContext';
 
 const Results = () => {
   const resultsContext = useContext(ResultsContext);
@@ -8,9 +10,15 @@ const Results = () => {
 
   return (
     <Fragment>
-      {results.map(result => (
-        <ResultItem key={result.id} result={result}></ResultItem>
-      ))}
+      {results.length > 0 ? (
+        results.map(result => (
+          <ResultItem key={result._id} result={result}></ResultItem>
+        ))
+      ) : (
+        <Fragment>
+          <h1>No Results. Play a game?</h1>
+        </Fragment>
+      )}
     </Fragment>
   );
 };

@@ -20,16 +20,29 @@ const ResultsState = props => {
   const [state, dispatch] = useReducer(ResultsReducer, initialState);
 
   // Add Result
-  const addResult = async result => {
+  const addResult = async (rawTimings, numErrors, isAuthenticated) => {
     const config = {
       headers: {
         'Content-Type': 'application/json'
       }
     };
 
+    let timings = ['List of timings from node i-1 to i in ms'];
+    for (let i = 1; i < rawTimings.length; i++) {
+      timings[i] = rawTimings[i] - rawTimings[i - 1];
+    }
+
     try {
-      const res = await axios.post('/api/results', result, config);
-      dispatch({ type: ADD_RESULT, payload: res.data });
+      if (isAuthenticated) {
+        const res = await axios.post(
+          '/api/results',
+          { timings, numErrors },
+          config
+        );
+        dispatch({ type: ADD_RESULT, payload: res.data });
+      } else {
+        dispatch({ type: ADD_RESULT, payload: { timings, numErrors } });
+      }
     } catch (err) {
       dispatch({ type: RESULT_ERROR, payload: err.response.msg });
     }
@@ -47,7 +60,9 @@ const ResultsState = props => {
     <ResultsContext.Provider
       value={{
         results: state.results,
-        error: state.error
+        error: state.error,
+
+        addResult
       }}
     >
       {props.children}

@@ -29,15 +29,17 @@ router.post('/', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  //const { scores } = req.body;
+  const { timings, numErrors } = req.body;
+
   try {
     const newResult = new Result({
-      //scores,
+      timings: timings,
+      numErrors: numErrors,
       name: req.user.name,
       user: req.user.id
     });
-    const result = await newResult.save();
-    res.json(result);
+    const savedResult = await newResult.save();
+    res.json(savedResult);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

@@ -8,12 +8,15 @@ const Button = ({ i }) => {
     nodes,
     prevNodes,
     playerPos,
-    NUM_POINTS,
+    numPoints,
 
     initGame,
     setDone,
     resetDone,
-    movePos
+    movePos,
+    incErrors,
+    checkpoint,
+    endGame
   } = gameContext;
 
   useEffect(() => {
@@ -22,16 +25,17 @@ const Button = ({ i }) => {
 
   const check = () => {
     if (i !== playerPos) {
-      alert('failed. wrong one.');
-      // TO-DO: Change to increment numErrors
-      resetDone();
-    } else if (playerPos === NUM_POINTS - 1) {
-      //reached end + final choice is correct
+      // Wrong choice - error
+      incErrors();
+    }
+    else if (playerPos === numPoints - 1) {
+      // Reached end + final choice is correct
+      checkpoint(i);
       alert('Game completed!');
-      // TO-DO: Get completion timings
-      initGame();
+      endGame();
     } else {
-      //continue game
+      // Correct choice - setDone, movePos, and checkpoint
+      checkpoint(i);
       setDone(i);
       movePos();
     }

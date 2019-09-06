@@ -1,14 +1,18 @@
-import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS } from '../types';
+import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS, INC_ERRORS, CHECKPOINT, END_GAME, START_GAME } from '../types';
 
 export default (state, action) => {
   let {
+    //nodeList,
+
     width,
     height,
-    nodeList,
     nodes,
     prevNodes,
     playerPos,
-    NUM_POINTS
+    numPoints,
+    numErrors,
+    rawTimings,
+    end
   } = state;
 
   switch (action.type) {
@@ -32,7 +36,7 @@ export default (state, action) => {
       // const choosePoints = () => {
       //   // Initialise indexes of points chosen
       //   let j = [];
-      //   for (let i=0; i<NUM_POINTS; i++) {
+      //   for (let i=0; i<numPoints; i++) {
       //     console.log(Math.floor(Math.random() * (nodeList.length - 0 + 1)));
       //     j[i] = Math.floor(Math.random() * (nodeList.length - 0 + 1));
       //   }
@@ -44,7 +48,7 @@ export default (state, action) => {
       //       prevNodes[i] = nodes[i-1];
       //     }
       //   }
-      //   prevNodes[0] = nodes[NUM_POINTS - 1];
+      //   prevNodes[0] = nodes[numPoints - 1];
       // }
 
       const randomPoint = () => {
@@ -59,13 +63,13 @@ export default (state, action) => {
         };
       };
 
-      for (let i = 0; i < NUM_POINTS; i++) {
+      for (let i = 0; i < numPoints; i++) {
         nodes[i] = randomPoint();
         if (i > 0) {
           prevNodes[i] = nodes[i - 1];
         }
       }
-      prevNodes[0] = nodes[NUM_POINTS - 1];
+      prevNodes[0] = nodes[numPoints - 1];
 
       // initLists();
       // choosePoints();
@@ -76,7 +80,10 @@ export default (state, action) => {
       return {
         ...state,
         nodes: nodes,
-        prevNodes: prevNodes
+        prevNodes: prevNodes,
+        playerPos: 0,
+        numErrors: 0,
+        rawTimings: [],
       };
     case SET_DONE:
       nodes[action.i].done = true;
@@ -85,24 +92,47 @@ export default (state, action) => {
         ...state,
         nodes: nodes
       };
-
     case RESET_DONE:
-      for (let i = 0; i < NUM_POINTS; i++) {
+      for (let i = 0; i < numPoints; i++) {
         nodes[i].done = false;
       }
 
       return {
         ...state,
         nodes: nodes,
-        playerPos: 0
+        playerPos: 0,
+        numErrors: 0
       };
-
     case MOVE_POS:
       playerPos++;
       return {
         ...state,
         playerPos: playerPos
       };
+    case INC_ERRORS:
+      numErrors++;
+      return {
+        ...state,
+        numErrors: numErrors
+      }
+    case CHECKPOINT:
+      rawTimings[action.i] = Date.now();
+      return {
+        ...state,
+        rawTimings: rawTimings
+      }
+    case END_GAME:
+      end = true;
+      return {
+        ...state,
+        end: end
+      }
+    case START_GAME:
+      end = false;
+      return {
+        ...state,
+        end: end
+      }
     default:
       return state;
   }
