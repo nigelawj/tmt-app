@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
+// NOTE: I WANT TO HAVE IT STYLED WITH RIGHT HAND SIDE LOGIN FORM
+// THEN LEFT HAND SIDE CONTAINS INFORMATION ON THE SITE AND LINKS TO READ MORE
+// ABOUT THE APP AND DEMENTIA ETC.
 const Login = props => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
@@ -16,7 +19,7 @@ const Login = props => {
 
     if (
       error ===
-      'Invalid Credentials' /* must match text exactly (for now since small scale) */
+      'Invalid Credentials' /* must match text exactly (for now since app is small scale) */
     ) {
       setAlert(error, 'danger');
       clearErrors();

@@ -9,25 +9,30 @@ const UserSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  IC: {
-    type: String
-    //required: true,
-    //unique: true
+  nric: {
+    type: String,
+    required: true,
+    unique: true
   },
   type: {
-    //can be appUser or doctor
     type: String,
     default: 'appUser'
+  },
+  practicingCertNo: {
+    type: String
   },
   password: {
     type: String,
     required: true
   },
-	assignedDoctor: {
-		// The doctor assigned to the user
-		type: mongoose.Schema.Types.ObjectId,
-    ref: 'users'
-	},
+  doctors: {
+    // The doctors the user has shared the results with
+    type: [mongoose.Schema.Types.ObjectId]
+  },
+  assignedUsers: {
+    // The users' results that have been shared with this doctor
+    type: [mongoose.Schema.Types.ObjectId]
+  },
   dateCreated: {
     type: Date,
     default: Date.now

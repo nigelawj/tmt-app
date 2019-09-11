@@ -12,6 +12,9 @@ import ResultContext from '../../context/results/resultsContext';
 import AuthContext from '../../context/auth/authContext';
 
 import ResultItem from '../results/ResultItem';
+import Spinner from '../layout/Spinner';
+
+import { Link } from 'react-router-dom';
 
 const Game = () => {
   const gameContext = useContext(GameContext);
@@ -28,10 +31,10 @@ const Game = () => {
   } = gameContext;
 
   const resultContext = useContext(ResultContext);
-  const { results, addResult } = resultContext;
+  const { results, addResult, loading, getResults } = resultContext;
 
   const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
+  const { loadUser, isAuthenticated } = authContext;
 
   const mapStyles = {
     position: 'relative'
@@ -45,9 +48,11 @@ const Game = () => {
   };
 
   useEffect(() => {
+    loadUser();
     if (end && rawTimings.length === nodes.length) {
       addResult(rawTimings, numErrors, isAuthenticated);
     }
+    getResults();
     initGame();
     // eslint-disable-next-line
   }, [end]);
@@ -69,19 +74,34 @@ const Game = () => {
   );
 
   const endscreen = (
+    // show results if any:
+    // guest users will have their recent game,
+    // logged in users will have normal message,
+    // registered in users will be prompted to log in
+    // show appropriate message for all
     <Fragment>
       <h1>END GAME</h1>
       <strong>Your result: </strong>
       {/* impossible it happens but required to stop code from breaking */}
-      {results.length > 0 ? (
-        <ResultItem result={results[results.length - 1]}></ResultItem>
-      ) : null}
+      {results !== null && !loading ? (
+        <Fragment>
+          {results.length > 0 ? (
+            <ResultItem
+              result={results[results.length - 1]}
+              showDelete={false}
+            ></ResultItem>
+          ) : null}
+        </Fragment>
+      ) : (
+        <Spinner />
+      )}
+      
+      <button onClick={startGame}>Try again</button>
       {isAuthenticated ? (
         <Fragment>
           <p>Try again or view your other results in home page</p>
-          <button onClick={startGame}>Try again</button>
           {/* TO-DO: Link it to the results homepage */}
-          <button>View All Results</button>
+          <button onClick={<Link to="/"></Link>}>View All Results</button>
         </Fragment>
       ) : (
         <Fragment>

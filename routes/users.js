@@ -34,10 +34,12 @@ router.post(
     const {
       name,
       email,
-      IC,
+      nric,
       type,
+      practicingCertNo,
       password,
-      assignedDoctor,
+      doctors,
+      assignedUsers,
       dateCreated
     } = req.body;
 
@@ -53,9 +55,12 @@ router.post(
       user = new User({
         name,
         email,
+        nric,
         type,
+        practicingCertNo,
         password,
-        assignedDoctor,
+        doctors,
+        assignedUsers,
         dateCreated
       });
 

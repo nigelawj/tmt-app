@@ -1,23 +1,40 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 
 import ResultItem from './ResultItem';
 
 import ResultsContext from '../../context/results/resultsContext';
 
+import Spinner from '../layout/Spinner';
+
 const Results = () => {
   const resultsContext = useContext(ResultsContext);
-  const { results } = resultsContext;
+  const { results, getResults, loading } = resultsContext;
+
+  useEffect(() => {
+    getResults();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Fragment>
-      {results.length > 0 ? (
-        results.map(result => (
-          <ResultItem key={result._id} result={result}></ResultItem>
-        ))
-      ) : (
+      {results !== null && !loading ? (
         <Fragment>
-          <h1>No Results. Play a game?</h1>
+          {results.length > 0 ? (
+            results.map(result => (
+              <ResultItem
+                key={result._id}
+                result={result}
+                showDelete={true}
+              ></ResultItem>
+            ))
+          ) : (
+            <Fragment>
+              <h1>No Results. Play a game?</h1>
+            </Fragment>
+          )}
         </Fragment>
+      ) : (
+        <Spinner />
       )}
     </Fragment>
   );

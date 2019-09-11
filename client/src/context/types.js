@@ -1,8 +1,9 @@
 // results
+export const GET_RESULTS = 'GET_RESULTS';
 export const ADD_RESULT = 'ADD_RESULT';
 export const DELETE_RESULT = 'DELETE_RESULT';
 export const EXPORT_RESULT = 'EXPORT_RESULT';
-export const ADD_PATIENT = 'ADD_PATIENT';
+export const CLEAR_RESULTS = 'CLEAR_RESULTS';
 export const RESULT_ERROR = 'RESULT_ERROR';
 
 // game
@@ -24,6 +25,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+// list
+export const GET_ALL_DOCTORS = 'GET_ALL_DOCTORS';
+export const GET_ASSIGNED_USERS = 'GET_ASSIGNED_USERS';
 
 // alert
 export const SET_ALERT = 'SET_ALERT';

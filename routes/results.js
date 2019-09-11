@@ -46,11 +46,28 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-// @route			DELETE api/results
+// @route			DELETE api/results/:id
 // @desc			Delete a user's test result
 // @access		Private
-router.delete('/', (req, res) => {
-  res.send('Delete yo results');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    let result = await Result.findById(req.params.id);
+
+    if (!result) {
+      return res.status(404).json({ msg: 'Result not found' });
+    }
+
+    // Make sure user owns result
+    if (result.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    await Result.findByIdAndRemove(req.params.id);
+    res.json({ msg: 'Result removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;

@@ -10,9 +10,7 @@ const Button = ({ i }) => {
     playerPos,
     numPoints,
 
-    initGame,
     setDone,
-    resetDone,
     movePos,
     incErrors,
     checkpoint,
@@ -23,6 +21,7 @@ const Button = ({ i }) => {
     // eslint-disable-next-line
   }, []);
 
+  // check(): function to implement logic triggered upon button click
   const check = () => {
     if (i !== playerPos) {
       // Wrong choice - error

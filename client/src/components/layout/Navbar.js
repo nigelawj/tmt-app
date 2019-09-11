@@ -2,19 +2,32 @@ import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
+import ResultsContext from '../../context/results/resultsContext';
 
 const Navbar = ({ title, icon }) => {
   const authContext = useContext(AuthContext);
   const { isAuthenticated, logout, user } = authContext;
 
+  const resultsContext = useContext(ResultsContext);
+  const { clearResults } = resultsContext;
+
   const onLogout = () => {
     logout();
+    clearResults();
   };
 
   const authLinks = (
     <Fragment>
+      {/* must put user && user.type as user is only loaded later, so will have null crash */}
+      {user && user.type === 'doctor' ? (
+        <li>
+          <Link to="/patients">View Patients</Link>
+        </li>
+      ) : (
+        <Fragment></Fragment>
+      )}
       <li>
-        <Link to="/">View Results</Link>
+        <Link to="/">Home</Link>
       </li>
       <li>Logged in as {user && user.name}!</li>
       <li>
@@ -42,9 +55,14 @@ const Navbar = ({ title, icon }) => {
         <i className={icon}> {title} </i>
       </h1>
       <ul>
-        <li>
-          <Link to="/game">Game</Link>
-        </li>
+        <Fragment>
+          {!isAuthenticated || (user && user.type === 'appUser') ? (
+            <li>
+              <Link to="/game">Game</Link>
+              <Link to="/doctors">Find Doctors</Link>
+            </li>
+          ) : null}
+        </Fragment>
         <li>
           <Link to="/about">About</Link>
         </li>
