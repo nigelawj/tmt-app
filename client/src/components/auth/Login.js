@@ -10,11 +10,11 @@ const Login = props => {
   const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
-  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { login, error, clearErrors, isAuthenticated, stopLoading } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/'); // redirect
+      props.history.push('/'); // redirects to '/'
     }
 
     if (
@@ -24,6 +24,7 @@ const Login = props => {
       setAlert(error, 'danger');
       clearErrors();
     }
+    stopLoading();
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 

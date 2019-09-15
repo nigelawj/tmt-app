@@ -7,11 +7,11 @@ const Register = props => {
   const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
-  const { register, error, clearErrors, isAuthenticated } = authContext;
+  const { register, error, clearErrors, isAuthenticated, stopLoading } = authContext;
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/'); // redirect
+      props.history.push('/'); // redirects to '/'
     }
 
     if (
@@ -21,6 +21,7 @@ const Register = props => {
       setAlert(error, 'danger');
       clearErrors();
     }
+    stopLoading();
     // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 
@@ -95,7 +96,7 @@ const Register = props => {
             name="name"
             value={name}
             onChange={onChange}
-            placeholder="e.g. Lil' Wayne"
+            placeholder={type === 'doctor' ? 'e.g. Dr Dre' : "e.g. Lil' Wayne"}
           />
         </div>
         <div className="form-group">

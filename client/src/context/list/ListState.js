@@ -4,12 +4,13 @@ import ListReducer from './listReducer';
 
 import axios from 'axios';
 
-import { GET_ALL_DOCTORS, GET_ASSIGNED_USERS } from '../types';
+import { GET_ALL_DOCTORS, GET_ASSIGNED_USERS, VIEW_PATIENT } from '../types';
 
 const ListState = props => {
   const initialState = {
     doctorList: null,
-    assignedUsersList: null
+    assignedUsersList: null,
+    patientViewed: null
   };
 
   const [state, dispatch] = useReducer(ListReducer, initialState);
@@ -42,15 +43,31 @@ const ListState = props => {
     dispatch({ type: GET_ASSIGNED_USERS, payload: res.data });
   };
 
+  // View Patient
+  const viewPatient = async _id => {
+    let res = await axios.get(`api/list/${_id}`);
+    let res2 = await axios.get(`api/results/${_id}`);
+    let results = [];
+
+    for (let i=0; i<res2.data.length; i++) {
+      results[i] = res2.data[i].timings;
+    }
+    res.data.results = results;
+    // TO-DO: convert results from obj of arrays to an array of arrays
+    dispatch({ type: VIEW_PATIENT, payload: res.data });
+  };
+
   return (
     <ListContext.Provider
       value={{
         doctorList: state.doctorList,
         assignedUsersList: state.assignedUsersList,
+        patientViewed: state.patientViewed,
 
         shareWithDoctor,
         getAllDoctors,
-        getAssignedUsers
+        getAssignedUsers,
+        viewPatient
       }}
     >
       {props.children}

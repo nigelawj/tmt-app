@@ -6,7 +6,7 @@ import ResultsContext from '../../context/results/resultsContext';
 
 const Navbar = ({ title, icon }) => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, logout, user } = authContext;
+  const { isAuthenticated, logout, user, loading } = authContext;
 
   const resultsContext = useContext(ResultsContext);
   const { clearResults } = resultsContext;
@@ -18,14 +18,6 @@ const Navbar = ({ title, icon }) => {
 
   const authLinks = (
     <Fragment>
-      {/* must put user && user.type as user is only loaded later, so will have null crash */}
-      {user && user.type === 'doctor' ? (
-        <li>
-          <Link to="/patients">View Patients</Link>
-        </li>
-      ) : (
-        <Fragment></Fragment>
-      )}
       <li>
         <Link to="/">Home</Link>
       </li>
@@ -54,20 +46,22 @@ const Navbar = ({ title, icon }) => {
       <h1>
         <i className={icon}> {title} </i>
       </h1>
-      <ul>
-        <Fragment>
-          {!isAuthenticated || (user && user.type === 'appUser') ? (
-            <li>
-              <Link to="/game">Game</Link>
-              <Link to="/doctors">Find Doctors</Link>
-            </li>
-          ) : null}
-        </Fragment>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-        {isAuthenticated ? authLinks : guestLinks}
-      </ul>
+      {!loading ? (
+        <ul>
+          <Fragment>
+            {!isAuthenticated || (user && user.type === 'appUser') ? (
+              <li>
+                <Link to="/game">Game</Link>
+                <Link to="/doctors">Find Doctors</Link>
+              </li>
+            ) : null}
+          </Fragment>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          {isAuthenticated ? authLinks : guestLinks}
+        </ul>
+      ) : null}
     </div>
   );
 };

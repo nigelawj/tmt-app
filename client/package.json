@@ -12,7 +12,8 @@
     "react-scripts": "3.1.1",
     "react-transition-group": "^4.2.2",
     "reactjs-popup": "^1.4.2",
-    "uuid": "^3.3.3"
+    "uuid": "^3.3.3",
+    "victory": "^33.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

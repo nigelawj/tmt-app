@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const { check, validationResult } = require('express-validator');
-const User = require('../models/User');
-const Result = require('../models/Result');
+const { validationResult } = require('express-validator');
 
+const Result = require('../models/Result');
 const auth = require('../middleware/auth');
 
 // @route			GET api/results
 // @desc			Get user's test results
-// @access		Public
+// @access		Private
 router.get('/', auth, async (req, res) => {
   try {
     const results = await Result.find({ user: req.user.id }).sort({ date: -1 });
@@ -40,6 +39,19 @@ router.post('/', auth, async (req, res) => {
     });
     const savedResult = await newResult.save();
     res.json(savedResult);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route			GET api/results/:id
+// @desc			Get a patient's test results
+// @access		Private
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const results = await Result.find({ user: req.params.id }).sort({ date: -1 });
+    res.json(results);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

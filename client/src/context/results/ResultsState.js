@@ -38,9 +38,15 @@ const ResultsState = props => {
       }
     };
 
-    let timings = ['List of timings from node i-1 to i in ms'];
+    // Create Timings Array
+    let temp = null;
+    let timings = [];
     for (let i = 1; i < rawTimings.length; i++) {
-      timings[i] = rawTimings[i] - rawTimings[i - 1];
+      temp = rawTimings[i] - rawTimings[i - 1];
+      timings[i-1] = {
+        x: i,
+        y: temp
+      }
     }
 
     try {
@@ -51,9 +57,9 @@ const ResultsState = props => {
           { timings, numErrors },
           config
         );
-        dispatch({ type: ADD_RESULT, payload: res.data });
+        dispatch({ type: ADD_RESULT, payload: res.data, local: false });
       } else {
-        // user is not logged in, display results in local storage
+        // user is not logged in, display temp copy of result
         dispatch({
           type: ADD_RESULT,
           payload: { timings, numErrors },

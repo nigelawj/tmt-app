@@ -42,17 +42,18 @@ const App = () => {
                   <div className="container">
                     <Alerts></Alerts>
                     <Switch>
-                      <PrivateRoute
-                        exact
-                        path="/patients/:id"
-                        component={PatientDetails}
-                      />
+                      {/* order of routes matter; will access first match, take note of bugs */}
                       <PrivateRoute exact path="/" component={Home} />
                       <Route exact path="/doctors" component={Doctors} />
                       <Route exact path="/about" component={About} />
                       <Route exact path="/game" component={Game} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />
+                      <PrivateRoute
+                        exact
+                        path="/:id"
+                        component={PatientDetails}
+                      />
                     </Switch>
                   </div>
                 </Fragment>

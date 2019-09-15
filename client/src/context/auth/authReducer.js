@@ -6,7 +6,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  STOP_LOADING
 } from '../types';
 
 export default (state, action) => {
@@ -44,6 +45,11 @@ export default (state, action) => {
 			return {
 				...state,
 				error: null
+      }
+    case STOP_LOADING:
+      return {
+        ...state,
+        loading: false
       }
     default:
       return state;

@@ -1,9 +1,7 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 
 import ResultItem from './ResultItem';
-
 import ResultsContext from '../../context/results/resultsContext';
-
 import Spinner from '../layout/Spinner';
 
 const Results = () => {

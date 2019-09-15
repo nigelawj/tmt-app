@@ -34,7 +34,7 @@ const Game = () => {
   const { results, addResult, loading, getResults } = resultContext;
 
   const authContext = useContext(AuthContext);
-  const { loadUser, isAuthenticated } = authContext;
+  const { stopLoading, loadUser, isAuthenticated } = authContext;
 
   const mapStyles = {
     position: 'relative'
@@ -48,11 +48,14 @@ const Game = () => {
   };
 
   useEffect(() => {
-    loadUser();
+    if (localStorage.token) {
+      loadUser();
+      getResults();
+    }
     if (end && rawTimings.length === nodes.length) {
       addResult(rawTimings, numErrors, isAuthenticated);
     }
-    getResults();
+    stopLoading();
     initGame();
     // eslint-disable-next-line
   }, [end]);
@@ -95,13 +98,15 @@ const Game = () => {
       ) : (
         <Spinner />
       )}
-      
+
       <button onClick={startGame}>Try again</button>
       {isAuthenticated ? (
         <Fragment>
           <p>Try again or view your other results in home page</p>
-          {/* TO-DO: Link it to the results homepage */}
-          <button onClick={<Link to="/"></Link>}>View All Results</button>
+          {/* TO-DO: Test if this button works! ez test. pls remove after testing */}
+          <Link to="/">
+            <button>View All Results</button>
+          </Link>
         </Fragment>
       ) : (
         <Fragment>
@@ -117,9 +122,13 @@ const Game = () => {
   return (
     <div style={mapStyles}>
       <GameNav></GameNav>
-      <ResizableBox className="box" width={width} height={height} axis="none">
-        {!end ? gamebox : endscreen}
-      </ResizableBox>
+      {!end ? (
+        <ResizableBox className="box" width={width} height={height} axis="none">
+          {gamebox}
+        </ResizableBox>
+      ) : (
+        <Fragment>{endscreen}</Fragment>
+      )}
     </div>
   );
 };

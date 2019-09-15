@@ -7,10 +7,13 @@ import AuthContext from '../../context/auth/authContext';
 // THE GUESTS WILL BE REDIRECTED VIA PRIVATEROUTE.JS
 const Home = () => {
   const authContext = useContext(AuthContext);
-  const { user, loadUser } = authContext;
+  const { user, loadUser, stopLoading } = authContext;
 
   useEffect(() => {
-    loadUser();
+    if (localStorage.token) {
+      loadUser();
+    }
+    stopLoading();
     // eslint-disable-next-line
   }, []);
 

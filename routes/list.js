@@ -7,15 +7,15 @@ const User = require('../models/User');
 const auth = require('../middleware/auth');
 
 // @route			GET api/list/patients
-// @desc			Get list of all patients tagged to a doctor
+// @desc			Get namelist of all patients tagged to a doctor
 // @access		Private
 router.get('/patients', auth, async (req, res) => {
   try {
-    const doctor = await User.findById(req.user.id).select('-password');
+    const doctor = await User.findById(req.user.id).select('assignedUsers');
 
     let patients = [];
-    for (let i=0; i<doctor.assignedUsers.length; i++) {
-      patients[i] = await User.findById(doctor.assignedUsers[i]).select('-password');
+    for (let i = 0; i < doctor.assignedUsers.length; i++) {
+      patients[i] = await User.findById(doctor.assignedUsers[i]).select('name');
     }
 
     res.json(patients);
@@ -30,7 +30,9 @@ router.get('/patients', auth, async (req, res) => {
 // @access		Public
 router.get('/doctors', async (req, res) => {
   try {
-    const doctors = await User.find({ type: 'doctor' }).select('-password').sort({ name: 1 });
+    const doctors = await User.find({ type: 'doctor' })
+      .select('-password')
+      .sort({ name: 1 });
     res.json(doctors);
   } catch (err) {
     console.error(err.message);
@@ -107,6 +109,19 @@ router.put('/share/:id', auth, async (req, res) => {
       );
     }
     res.json(updatedUser);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route			GET api/list/:id
+// @desc			Get account details of specific user
+// @access		Private
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select('-password');
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
