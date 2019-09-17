@@ -4,13 +4,21 @@ import ListReducer from './listReducer';
 
 import axios from 'axios';
 
-import { GET_ALL_DOCTORS, GET_ASSIGNED_USERS, VIEW_PATIENT } from '../types';
+import {
+  GET_ALL_DOCTORS,
+  GET_ASSIGNED_USERS,
+  VIEW_PATIENT,
+  FILTER_DOCTORS,
+  FILTER_ASSIGNED_USERS,
+  CLEAR_FILTER,
+} from '../types';
 
 const ListState = props => {
   const initialState = {
     doctorList: null,
     assignedUsersList: null,
-    patientViewed: null
+    patientViewed: null,
+    filtered: null
   };
 
   const [state, dispatch] = useReducer(ListReducer, initialState);
@@ -49,12 +57,27 @@ const ListState = props => {
     let res2 = await axios.get(`api/results/${_id}`);
     let results = [];
 
-    for (let i=0; i<res2.data.length; i++) {
+    for (let i = 0; i < res2.data.length; i++) {
       results[i] = res2.data[i].timings;
     }
     res.data.results = results;
     // TO-DO: convert results from obj of arrays to an array of arrays
     dispatch({ type: VIEW_PATIENT, payload: res.data });
+  };
+
+  // Filter Doctors/Patients
+  const filter = (text, filterType) => {
+    if (filterType === 'doctors') {
+      dispatch({ type: FILTER_DOCTORS, payload: text });
+    }
+    else if (filterType === 'assignedUsers') {
+      dispatch({ type: FILTER_ASSIGNED_USERS, payload: text});
+    }
+  };
+
+  // Clear Filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
   };
 
   return (
@@ -63,11 +86,14 @@ const ListState = props => {
         doctorList: state.doctorList,
         assignedUsersList: state.assignedUsersList,
         patientViewed: state.patientViewed,
+        filtered: state.filtered,
 
         shareWithDoctor,
         getAllDoctors,
         getAssignedUsers,
-        viewPatient
+        viewPatient,
+        filter,
+        clearFilter
       }}
     >
       {props.children}

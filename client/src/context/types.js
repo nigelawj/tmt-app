@@ -31,6 +31,9 @@ export const STOP_LOADING = 'STOP_LOADING';
 export const GET_ALL_DOCTORS = 'GET_ALL_DOCTORS';
 export const GET_ASSIGNED_USERS = 'GET_ASSIGNED_USERS';
 export const VIEW_PATIENT = 'VIEW_PATIENT';
+export const FILTER_DOCTORS = 'FILTER_DOCTORS';
+export const FILTER_ASSIGNED_USERS = 'FILTER_ASSIGNED_USERS';
+export const CLEAR_FILTER = 'CLEAR_FILTER';
 
 // alert
 export const SET_ALERT = 'SET_ALERT';

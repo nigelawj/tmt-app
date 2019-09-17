@@ -3,8 +3,7 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import ListContext from '../../context/list/listContext';
 import AuthContext from '../../context/auth/authContext';
 
-import ResultItem from '../results/ResultItem';
-import { VictoryLine, VictoryChart } from 'victory';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryZoomContainer, VictoryLegend } from 'victory';
 
 const PatientDetails = props => {
   const _id = props.match.params.id;
@@ -40,8 +39,37 @@ const PatientDetails = props => {
                     <div>
                       {patientViewed.results.length > 0
                         ? patientViewed.results.map(result => (
-                            <VictoryChart>
-                              <VictoryLine result={result}></VictoryLine>
+                            <VictoryChart
+                              theme={VictoryTheme.material}
+                              containerComponent={<VictoryZoomContainer />}
+                            >
+                              <VictoryLegend
+                                x={125}
+                                y={50}
+                                title="Legend"
+                                centerTitle
+                                orientation="horizontal"
+                                gutter={20}
+                                style={{
+                                  border: { stroke: 'black' },
+                                  title: { fontSize: 20 }
+                                }}
+                                data={[
+                                  {
+                                    name: 'One',
+                                    symbol: { fill: 'tomato', type: 'star' }
+                                  },
+                                  { name: 'Two', symbol: { fill: 'orange' } },
+                                  { name: 'Three', symbol: { fill: 'gold' } }
+                                ]}
+                              />
+                              <VictoryLine
+                                style={{
+                                  data: { stroke: '#c43a31' },
+                                  parent: { border: '1px solid #ccc' }
+                                }}
+                                data={result.timings}
+                              ></VictoryLine>
                             </VictoryChart>
                           ))
                         : null}

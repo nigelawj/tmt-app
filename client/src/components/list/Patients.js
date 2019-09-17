@@ -7,12 +7,14 @@ import ListContext from '../../context/list/listContext';
 import UserItem from './UserItem';
 import Spinner from '../layout/Spinner';
 
+import Filter from './Filter';
+
 const Patients = () => {
   const authContext = useContext(AuthContext);
   const { loadUser, loading } = authContext;
 
   const listContext = useContext(ListContext);
-  const { assignedUsersList, getAssignedUsers } = listContext;
+  const { assignedUsersList, getAssignedUsers, filtered } = listContext;
 
   useEffect(() => {
     loadUser();
@@ -22,15 +24,25 @@ const Patients = () => {
 
   return (
     <Fragment>
+      <Filter filterType="assignedUsers"></Filter>
       {assignedUsersList !== null && !loading ? (
         <Fragment>
           {assignedUsersList.length > 0 ? (
-            assignedUsersList.map(assignedUser => (
-              <UserItem
-                key={assignedUser._id}
-                assignedUser={assignedUser}
-              ></UserItem>
-            ))
+            <Fragment>
+              {filtered !== null
+                ? filtered.map(assignedUser => (
+                    <UserItem
+                      key={assignedUser._id}
+                      assignedUser={assignedUser}
+                    ></UserItem>
+                  ))
+                : assignedUsersList.map(assignedUser => (
+                    <UserItem
+                      key={assignedUser._id}
+                      assignedUser={assignedUser}
+                    ></UserItem>
+                  ))}
+            </Fragment>
           ) : (
             <Fragment>
               <h1>You currently have no patients.</h1>

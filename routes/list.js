@@ -15,7 +15,7 @@ router.get('/patients', auth, async (req, res) => {
 
     let patients = [];
     for (let i = 0; i < doctor.assignedUsers.length; i++) {
-      patients[i] = await User.findById(doctor.assignedUsers[i]).select('name');
+      patients[i] = await User.findById(doctor.assignedUsers[i]).select('name email');
     }
 
     res.json(patients);

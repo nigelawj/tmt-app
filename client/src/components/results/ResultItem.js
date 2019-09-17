@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ResultsContext from '../../context/results/resultsContext';
 
-import { VictoryLine, VictoryChart, VictoryTheme } from 'victory';
+import {
+  VictoryLine,
+  VictoryChart,
+  VictoryTheme,
+  VictoryZoomContainer,
+  VictoryLegend
+} from 'victory';
 
 const ResultItem = ({ result, showDelete }) => {
   const resultContext = useContext(ResultsContext);
@@ -27,7 +33,24 @@ const ResultItem = ({ result, showDelete }) => {
         {timings.map((timing, i) => (
           <h6>{timing}</h6>
         ))} */}
-        <VictoryChart theme={VictoryTheme.material}>
+        <VictoryChart
+          theme={VictoryTheme.material}
+          containerComponent={<VictoryZoomContainer />}
+        >
+          <VictoryLegend
+            x={125}
+            y={50}
+            title="Legend"
+            centerTitle
+            orientation="horizontal"
+            gutter={20}
+            style={{ border: { stroke: 'black' }, title: { fontSize: 20 } }}
+            data={[
+              { name: 'One', symbol: { fill: 'tomato', type: 'star' } },
+              { name: 'Two', symbol: { fill: 'orange' } },
+              { name: 'Three', symbol: { fill: 'gold' } }
+            ]}
+          />
           <VictoryLine
             style={{
               data: { stroke: '#c43a31' },
