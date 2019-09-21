@@ -15,7 +15,9 @@ router.get('/patients', auth, async (req, res) => {
 
     let patients = [];
     for (let i = 0; i < doctor.assignedUsers.length; i++) {
-      patients[i] = await User.findById(doctor.assignedUsers[i]).select('name email');
+      patients[i] = await User.findById(doctor.assignedUsers[i]).select(
+        'name email'
+      );
     }
 
     res.json(patients);
@@ -55,7 +57,30 @@ router.put('/share/:id', auth, async (req, res) => {
     if (user._id.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not authorised' });
     }
+
+    // This situation will not happen, but leave it here: KIV
+    // check if doctor exists (could be deleted);
+    // delete if does not exist
     let updatedUser = null;
+    let doctor = await User.findById(doctorID);
+    if (!doctor) {
+      updatedUser = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $set: {
+            doctors: user.doctors.filter(
+              doctor => doctor.toString() !== doctorID.toString()
+            )
+          }
+        },
+        { new: true }
+      );
+      return res
+        .status(404)
+        .json({ msg: 'Doctor not found; Cleaned up doctors array.' });
+    }
+
+    // doctor is inside doctors array already, hence must be removed
     if (user.doctors.includes(doctorID)) {
       updatedUser = await User.findByIdAndUpdate(
         req.user.id,
@@ -68,7 +93,7 @@ router.put('/share/:id', auth, async (req, res) => {
         },
         { new: true }
       );
-    } else {
+    } else { // doctor exists and not in user's doctors array
       updatedUser = await User.findByIdAndUpdate(
         req.user.id,
         {
@@ -81,10 +106,6 @@ router.put('/share/:id', auth, async (req, res) => {
     }
 
     // update doctor's assignedUsers list
-    let doctor = await User.findById(doctorID);
-    if (!doctor) {
-      return res.status(404).json({ msg: 'Doctor not found' });
-    }
     if (doctor.assignedUsers.includes(req.user.id)) {
       await User.findByIdAndUpdate(
         doctorID,

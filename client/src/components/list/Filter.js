@@ -11,6 +11,7 @@ const Filter = ({ filterType }) => {
     if (filtered === null) {
       text.current.value = '';
     }
+    clearFilter();
     // eslint-disable-next-line
   }, []);
 

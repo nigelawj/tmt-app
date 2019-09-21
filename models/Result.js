@@ -6,7 +6,7 @@ const ResultSchema = mongoose.Schema({
     ref: 'users'
   },
   name: {
-		type: String
+    type: String
   },
   date: {
     type: Date,
@@ -15,6 +15,9 @@ const ResultSchema = mongoose.Schema({
   timings: {
     type: [],
     default: []
+  },
+  totalTime: {
+    type: Number
   },
   numErrors: {
     type: Number,

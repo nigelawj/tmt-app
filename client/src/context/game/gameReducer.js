@@ -1,4 +1,14 @@
-import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS, INC_ERRORS, CHECKPOINT, END_GAME, START_GAME } from '../types';
+import {
+  INIT_GAME,
+  SET_DONE,
+  RESET_DONE,
+  MOVE_POS,
+  INC_ERRORS,
+  CHECKPOINT,
+  END_GAME,
+  START_GAME
+} from '../types';
+import randomPoint from '../../utils/randomPoint';
 
 export default (state, action) => {
   let {
@@ -51,20 +61,8 @@ export default (state, action) => {
       //   prevNodes[0] = nodes[numPoints - 1];
       // }
 
-      const randomPoint = () => {
-        let x = Math.floor(Math.random() * (width - 100 + 1) + 50);
-        let y = Math.floor(Math.random() * (height - 100 + 1) + 50);
-        //let done = (Math.random() < 0.5); // boolean
-
-        return {
-          x: x,
-          y: y,
-          done: false
-        };
-      };
-
       for (let i = 0; i < numPoints; i++) {
-        nodes[i] = randomPoint();
+        nodes[i] = randomPoint(width, height);
         if (i > 0) {
           prevNodes[i] = nodes[i - 1];
         }
@@ -83,7 +81,7 @@ export default (state, action) => {
         prevNodes: prevNodes,
         playerPos: 0,
         numErrors: 0,
-        rawTimings: [],
+        rawTimings: []
       };
     case SET_DONE:
       nodes[action.i].done = true;
@@ -114,25 +112,25 @@ export default (state, action) => {
       return {
         ...state,
         numErrors: numErrors
-      }
+      };
     case CHECKPOINT:
       rawTimings[action.i] = Date.now();
       return {
         ...state,
         rawTimings: rawTimings
-      }
+      };
     case END_GAME:
       end = true;
       return {
         ...state,
         end: end
-      }
+      };
     case START_GAME:
       end = false;
       return {
         ...state,
         end: end
-      }
+      };
     default:
       return state;
   }

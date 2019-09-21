@@ -39,22 +39,28 @@ const ResultsState = props => {
     };
 
     // Create Timings Array
-    let temp = null;
+    
+    // let temp = null;
+    // let timings = [];
+    // for (let i = 1; i < rawTimings.length; i++) {
+    //   temp = rawTimings[i] - rawTimings[i - 1];
+    //   timings[i-1] = {
+    //     x: i,
+    //     y: temp
+    //   }
+    // }
     let timings = [];
     for (let i = 1; i < rawTimings.length; i++) {
-      temp = rawTimings[i] - rawTimings[i - 1];
-      timings[i-1] = {
-        x: i,
-        y: temp
-      }
+      timings[i-1] = rawTimings[i] - rawTimings[i - 1];
     }
+    let totalTime = rawTimings[rawTimings.length-1] - rawTimings[0];
 
     try {
       if (isAuthenticated) {
         // if user is logged in, post results to database first
         const res = await axios.post(
           '/api/results',
-          { timings, numErrors },
+          { timings, numErrors, totalTime },
           config
         );
         dispatch({ type: ADD_RESULT, payload: res.data, local: false });
@@ -62,7 +68,7 @@ const ResultsState = props => {
         // user is not logged in, display temp copy of result
         dispatch({
           type: ADD_RESULT,
-          payload: { timings, numErrors },
+          payload: { timings, numErrors, totalTime },
           local: true
         });
       }

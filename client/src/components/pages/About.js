@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import AuthContext from '../../context/auth/authContext';
 
 const About = () => {
+  const authContext = useContext(AuthContext);
+  const { loadUser, stopLoading } = authContext;
+
+  useEffect(() => {
+    if (localStorage.token) {
+      loadUser();
+    }
+    stopLoading();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div>
       <h1>About This App</h1>
       <p className="my-1">This is a full stack React app for the TMT25 App</p>
       <p className="bg-dark p">
-        <strong>Version: </strong>1.0.0
+        <strong>Version: </strong>1.0.1
       </p>
     </div>
   );

@@ -55,12 +55,8 @@ const ListState = props => {
   const viewPatient = async _id => {
     let res = await axios.get(`api/list/${_id}`);
     let res2 = await axios.get(`api/results/${_id}`);
-    let results = [];
-
-    for (let i = 0; i < res2.data.length; i++) {
-      results[i] = res2.data[i].timings;
-    }
-    res.data.results = results;
+    
+    res.data.results = res2.data;
     // TO-DO: convert results from obj of arrays to an array of arrays
     dispatch({ type: VIEW_PATIENT, payload: res.data });
   };

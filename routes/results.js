@@ -28,12 +28,13 @@ router.post('/', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { timings, numErrors } = req.body;
+  const { timings, numErrors, totalTime } = req.body;
 
   try {
     const newResult = new Result({
       timings: timings,
       numErrors: numErrors,
+      totalTime: totalTime,
       name: req.user.name,
       user: req.user.id
     });

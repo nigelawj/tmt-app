@@ -18,11 +18,8 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="grid-2">
-      <div>
-        {user && <h1>Welcome back, {user.name}</h1>}
-        {/* miscellaneous stats... no. games played? details? */}
-      </div>
+    <div>
+      {user && <h1>Welcome back, {user.name}</h1>}
       <div>
         {user && user.type === 'appUser' ? (
           <Results />

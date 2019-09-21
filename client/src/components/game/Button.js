@@ -30,7 +30,6 @@ const Button = ({ i }) => {
     else if (playerPos === numPoints - 1) {
       // Reached end + final choice is correct
       checkpoint(i);
-      alert('Game completed!');
       endGame();
     } else {
       // Correct choice - setDone, movePos, and checkpoint
