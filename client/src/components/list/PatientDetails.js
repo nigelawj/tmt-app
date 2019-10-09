@@ -74,7 +74,7 @@ const PatientDetails = props => {
       {
         name: 'Average',
         type: 'line',
-        data: [550, 802, 1430, 1233, 1343, 2211, 1426, 1511]
+        data: [550, 802, 1430, 1254, 1343, 2054, 1426, 1511,802,1813, 1426, 1511,802,1426, 1511,802, 1430, 1233, 1343, 1122, 1324, 1421,1126, 1311,802]
       }
     ]
   });
@@ -103,17 +103,21 @@ const PatientDetails = props => {
         <Fragment>
           {user._id === _id || user.assignedUsers.includes(_id) ? (
             <Fragment>
-              <h1 className="text-primary text-left">
+              <div className="text-left">
                 {patientViewed ? (
                   <div>
                     <Fragment>
-                      {patientViewed.name}
-                      <button
-                        style={{ float: 'right' }}
-                        onClick={props.history.goBack}
-                      >
-                        Back
-                      </button>
+                      <div className="container" style={{paddingTop:"32px",paddingBottom:"32px"}}>
+                        <button
+                          type="button"
+                          className="btn btn-info"
+                          style={{ float: 'right' }}
+                          onClick={props.history.goBack}
+                        >
+                          Back
+                        </button>
+                        <h1><strong><span className="text-info">{patientViewed.name}</span> TMT Result </strong></h1>
+                      </div>
                     </Fragment>
                     <Fragment>
                       <Chart
@@ -130,20 +134,23 @@ const PatientDetails = props => {
                                 result={result}
                                 showDelete={false}
                               ></ResultItem>
-                              <button
-                                onClick={() => {
-                                  setShow(result);
-                                }}
-                              >
-                                Add to Graph
-                              </button>
+                              <div className="container text-center" style={{paddingTop:"16px",paddingBottom:"32px"}}>
+                                <button 
+                                  className="btn btn-success btn-sm"
+                                  onClick={() => {
+                                    setShow(result);
+                                  }}
+                                >
+                                  Add to Graph
+                                </button>
+                              </div>
                             </Fragment>
                           ))
                         : null}
                     </Fragment>
                   </div>
                 ) : null}
-              </h1>
+              </div>
             </Fragment>
           ) : (
             <Fragment>

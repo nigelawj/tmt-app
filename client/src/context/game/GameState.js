@@ -6,7 +6,6 @@ import { INIT_GAME, SET_DONE, RESET_DONE, MOVE_POS, INC_ERRORS, CHECKPOINT, END_
 
 const GameState = props => {
   const initialState = {
-    nodeList: [],
     nodes: [],
     links: [],
     prevNodes: [],
@@ -18,7 +17,7 @@ const GameState = props => {
 
     width: 1036,
     height: 553,
-    numPoints: 4,
+    numPoints: 25,
   };
 
   const [state, dispatch] = useReducer(GameReducer, initialState);
@@ -66,7 +65,6 @@ const GameState = props => {
   return (
     <GameContext.Provider
       value={{
-        nodeList: state.nodeList,
         nodes: state.nodes,
         links: state.links,
         prevNodes: state.prevNodes,

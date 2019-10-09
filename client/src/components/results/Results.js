@@ -62,7 +62,33 @@ const Results = () => {
       {
         name: 'Average',
         type: 'line',
-        data: [550, 802, 1430, 1233, 1343, 2211, 1426, 1511]
+        data: [
+          550,
+          802,
+          1430,
+          1254,
+          1343,
+          2054,
+          1426,
+          1511,
+          802,
+          1813,
+          1426,
+          1511,
+          802,
+          1426,
+          1511,
+          802,
+          1430,
+          1233,
+          1343,
+          1122,
+          1324,
+          1421,
+          1126,
+          1311,
+          802
+        ]
       }
     ]
   });
@@ -104,13 +130,19 @@ const Results = () => {
             results.map((result, i) => (
               <Fragment key={result._id}>
                 <ResultItem result={result} showDelete={true}></ResultItem>
-                <button
-                  onClick={() => {
-                    setShow(result);
-                  }}
+                <div
+                  className="container text-center"
+                  style={{ paddingTop: '16px', paddingBottom: '32px' }}
                 >
-                  Add to Graph
-                </button>
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={() => {
+                      setShow(result);
+                    }}
+                  >
+                    Add to Graph
+                  </button>
+                </div>
               </Fragment>
             ))
           ) : (

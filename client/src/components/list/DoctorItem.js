@@ -16,12 +16,12 @@ const DoctorItem = ({ doctor, shared }) => {
   const [bool, setBool] = useState(shared);
 
   return (
-    <div className="card bg-light">
-      <h3 className="text-primary text-left">
+    <div className="card text-center" style={{margin: "0 auto", width:"500px",paddingTop:"16px",paddingLeft:"16px",paddingRight:"16px"}}>
+      <h5 className="card-title text-center">
         {name}
+        <br></br>
         {user ? (
           <FormControlLabel
-            style={{ float: 'right' }}
             control={
               <Switch
                 checked={bool}
@@ -39,7 +39,7 @@ const DoctorItem = ({ doctor, shared }) => {
             labelPlacement="start"
           />
         ) : null}
-      </h3>
+      </h5>
     </div>
   );
 };

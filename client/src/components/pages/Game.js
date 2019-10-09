@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, Fragment } from 'react';
-import background from '../game/background.png';
+import background from '../game/background.jpg';
 
 import GameNav from '../../components/layout/GameNav';
 import Button from '../game/Button';
 
 import './Game.css';
-import { ResizableBox } from 'react-resizable';
 
 import GameContext from '../../context/game/gameContext';
 import ResultContext from '../../context/results/resultsContext';
@@ -36,17 +35,6 @@ const Game = () => {
   const authContext = useContext(AuthContext);
   const { stopLoading, loadUser, isAuthenticated } = authContext;
 
-  const mapStyles = {
-    position: 'relative'
-  };
-  const svgStyles = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  };
-
   useEffect(() => {
     if (localStorage.token) {
       loadUser();
@@ -61,19 +49,14 @@ const Game = () => {
   }, [end]);
 
   const gamebox = (
-    <Fragment>
+    <div className="img-overlay-wrap">
       <img src={background} alt="empty" width={width} height={height} />
-      <svg
-        style={svgStyles}
-        width={width}
-        height={height}
-        viewBox={`0 0 ${width} ${height}`}
-      >
+      <svg viewBox={`0 0 ${width} ${height}`}>
         {nodes.map((node, i) => (
           <Button key={i} i={i}></Button>
         ))}
       </svg>
-    </Fragment>
+    </div>
   );
 
   const endscreen = (
@@ -83,8 +66,53 @@ const Game = () => {
     // registered in users will be prompted to log in
     // show appropriate message for all
     <Fragment>
-      <h1>END GAME</h1>
-      <strong>Your result: </strong>
+      <div
+        className="jumbotron text-center jumbotron-fluid"
+        style={{ backgroundColor: '#f0f8ff' }}
+      >
+        <div className="container">
+          <h1>Trail Making Test</h1>
+          <h6 style={{ color: '#777' }}>Your Result</h6>
+        </div>
+      </div>
+      <div className="row">
+        <div
+          className="col-sm-4 text-center"
+          style={{
+            backgroundColor: '#fff',
+            paddingTop: '16px',
+            paddingBottom: '32px'
+          }}
+        >
+          <strong>
+            Average Completion Time :<br></br>29s
+          </strong>
+        </div>
+        <div
+          className="col-sm-4 text-center"
+          style={{
+            backgroundColor: '#fff',
+            paddingTop: '16px',
+            paddingBottom: '32px'
+          }}
+        >
+          <strong>
+            Deficiency is suspected :<br></br>>78s
+          </strong>
+        </div>
+        <div
+          className="col-sm-4 text-center"
+          style={{
+            backgroundColor: '#fff',
+            paddingTop: '16px',
+            paddingBottom: '32px'
+          }}
+        >
+          <strong>
+            Most common completion timing :<br></br>90s
+          </strong>
+        </div>
+      </div>
       {/* impossible it happens but required to stop code from breaking */}
       {results !== null && !loading ? (
         <Fragment>
@@ -98,34 +126,57 @@ const Game = () => {
       ) : (
         <Spinner />
       )}
-
-      <button onClick={startGame}>Try again</button>
+      <div
+        className="container text-center"
+        style={{ paddingTop: '16px', paddingBottom: '16px' }}
+      >
+        <button type="button" className="btn btn-success" onClick={startGame}>
+          Try Again
+        </button>
+      </div>
       {isAuthenticated ? (
         <Fragment>
-          <p>Try again or view your other results in home page</p>
-          {/* TO-DO: Test if this button works! ez test. pls remove after testing */}
-          <Link to="/">
-            <button>View All Results</button>
-          </Link>
+          <div
+            className="container text-center"
+            style={{
+              backgroundColor: '#c6f7cf',
+              paddingTop: '16px',
+              paddingBottom: '16px'
+            }}
+          >
+            <p>Try again or view your other results in home page</p>
+            <Link to="/">
+              <button type="button" className="btn btn-success">
+                View All Results
+              </button>
+            </Link>
+          </div>
         </Fragment>
       ) : (
         <Fragment>
-          <h1>
-            You do not have an account. Please log in or create an account to be
-            able to save results/view past results!
-          </h1>
+          <div
+            className="container text-center"
+            style={{
+              backgroundColor: '#c6f7cf',
+              paddingTop: '32px',
+              paddingBottom: '32px'
+            }}
+          >
+            <h4>You do not have an account.</h4>
+            <p>Please log in or create an account to save your results!</p>
+          </div>
         </Fragment>
       )}
     </Fragment>
   );
 
   return (
-    <div style={mapStyles}>
-      <GameNav></GameNav>
+    <div>
       {!end ? (
-        <ResizableBox className="box" width={width} height={height} axis="none">
+        <Fragment>
+          <GameNav></GameNav>
           {gamebox}
-        </ResizableBox>
+        </Fragment>
       ) : (
         <Fragment>{endscreen}</Fragment>
       )}

@@ -52,30 +52,45 @@ const Login = props => {
   };
 
   return (
-    <div className="form-container">
-      <h1>
-        Account <span className="text-primary">Login</span>
-      </h1>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Email Address</label>
-          <input type="email" name="email" value={email} onChange={onChange} />
+    <div className="container" style={{paddingTop:"64px",paddingBottom:"64px"}}>
+      <div className="form-container">
+        <div className="container text-center" style={{paddingTop:"0",paddingBottom:"16px"}}>
+          <h3>
+            <strong>Account <span className="text-info">Login</span></strong>
+          </h3>
         </div>
-        <div className="form-group">
-          <label htmlFor="name">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={onChange}
-          />
-        </div>
-        <input
-          type="submit"
-          value="Login"
-          className="btn btn-primary btn-block"
-        />
-      </form>
+        <form  className="form-horizontal" onSubmit={onSubmit}>
+          <div className="form-group row">
+            <div className="col-sm-2"></div>
+            <label  className="col-form-label mr-2 col-sm-3 text-right" htmlFor="name">Email Address :</label>
+            <div className="col-sm-5">
+              <input className="form-control" type="email" name="email" value={email} onChange={onChange} />
+            </div>
+            <div className="col-sm-2"></div>
+          </div>
+          <div className="form-group row">
+            <div className="col-sm-2"></div>
+            <label className="col-form-label mr-2 col-sm-3 text-right " htmlFor="name">Password :</label>
+            <div className="col-sm-5">
+              <input
+                className="form-control"
+                type="password"
+                name="password"
+                value={password}
+                onChange={onChange}
+              />
+            </div>
+            <div className="col-sm-6"></div>
+          </div>
+          <div className="container text-center">
+            <input
+              type="submit"
+              value="Login"
+              className="btn btn-info btn-block"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

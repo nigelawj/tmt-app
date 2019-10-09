@@ -33,7 +33,102 @@ const ResultItem = ({ result, showDelete }) => {
   }
 
   return (
-    <div className="card bg-light">
+    <div className="card text-center">
+      <div className="card-header bg-info">
+        <h4 className="card-title">
+          <span className="badge badge-info">{name ? name : 'Guest'} </span>
+        </h4>
+        {name ? (
+          <p className="card-text" style={{ color: '#fff' }}>
+            Date: {date}
+          </p>
+        ) : (
+          ''
+        )}
+      </div>
+      <div className="card-body">
+        <Fragment>
+          <p>
+            <strong>Number of errors : </strong>
+            <br></br>
+            {numErrors}
+          </p>
+          <p>
+            <strong>Total time taken : </strong>
+            <br></br>
+            {totalTime} ms
+          </p>
+          <Fragment>
+            <p>
+              <strong>Time taken to reach node (/ms):</strong>
+            </p>
+            <div className="row">
+              {timings.map((timing, i) => (
+                <div className="col-sm-4" key={i}>
+                  Node {i + 1} : {timing}
+                </div>
+              ))}
+            </div>
+            <br></br>
+          </Fragment>
+        </Fragment>
+        <Fragment>
+          {showDelete ? (
+            <Fragment>
+              <button
+                style={{ float: 'right' }}
+                className="btn btn-danger btn-sm"
+                onClick={handleClickOpen}
+              >
+                Delete Result
+              </button>
+              <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <DialogTitle id="alert-dialog-slide-title">
+                  {'CONFIRM DELETION OF RESULT'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-slide-description">
+                    Are you sure you want to delete? This action is
+                    irreversible!
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleClose();
+                      deleteResult(_id);
+                    }}
+                    color="primary"
+                  >
+                    OK
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </Fragment>
+          ) : null}
+        </Fragment>
+      </div>
+    </div>
+  );
+};
+
+ResultItem.propTypes = {
+  result: PropTypes.object.isRequired
+};
+
+export default ResultItem;
+
+/*<div className="card bg-light">
       <h3 className="text-primary text-left">
         {name ? name : 'Guest'}{' '}
         <span style={{ float: 'right' }} className={'badge badge-primary'}>
@@ -41,7 +136,7 @@ const ResultItem = ({ result, showDelete }) => {
         </span>
       </h3>
       <Fragment>
-        <p>Date: {date}</p>
+        {name ? (<p>Date: {date}</p>) : ''}
         <p>Total time taken: {totalTime} ms</p>
         <strong>Timings</strong>
         <Fragment>
@@ -98,12 +193,4 @@ const ResultItem = ({ result, showDelete }) => {
           </Fragment>
         ) : null}
       </Fragment>
-    </div>
-  );
-};
-
-ResultItem.propTypes = {
-  result: PropTypes.object.isRequired
-};
-
-export default ResultItem;
+    </div>*/

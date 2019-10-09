@@ -45,7 +45,7 @@ const Patients = () => {
             </Fragment>
           ) : (
             <Fragment>
-              <h1>You currently have no patients.</h1>
+              <p>You currently have no patients.</p>
             </Fragment>
           )}
         </Fragment>
