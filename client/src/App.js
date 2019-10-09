@@ -24,6 +24,7 @@ import ListState from './context/list/ListState';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 import setAuthToken from './utils/setAuthToken';
+import GameSurvey from './components/pages/GameSurvey';
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -46,6 +47,7 @@ const App = () => {
                       <PrivateRoute exact path="/" component={Home} />
                       <Route exact path="/doctors" component={Doctors} />
                       <Route exact path="/about" component={About} />
+                      <Route exact path="/gamesurvey" component={GameSurvey} />
                       <Route exact path="/game" component={Game} />
                       <Route exact path="/register" component={Register} />
                       <Route exact path="/login" component={Login} />

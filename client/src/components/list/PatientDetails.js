@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 
 import ListContext from '../../context/list/listContext';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
 import ResultItem from '../results/ResultItem';
 
@@ -15,6 +16,9 @@ const PatientDetails = props => {
 
   const authContext = useContext(AuthContext);
   const { loadUser, user } = authContext;
+
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
 
   useEffect(() => {
     loadUser();
@@ -52,8 +56,7 @@ const PatientDetails = props => {
           '21-22',
           '22-23',
           '23-24',
-          '24-25',
-          '25-END'
+          '24-25'
         ]
       },
       markers: {
@@ -74,14 +77,43 @@ const PatientDetails = props => {
       {
         name: 'Average',
         type: 'line',
-        data: [550, 802, 1430, 1254, 1343, 2054, 1426, 1511,802,1813, 1426, 1511,802,1426, 1511,802, 1430, 1233, 1343, 1122, 1324, 1421,1126, 1311,802]
+        data: [
+          550,
+          802,
+          1430,
+          1254,
+          1343,
+          2054,
+          1426,
+          1511,
+          802,
+          1813,
+          1426,
+          1511,
+          802,
+          1426,
+          1511,
+          802,
+          1430,
+          1233,
+          1343,
+          1122,
+          1324,
+          1421,
+          1126,
+          1311
+        ]
       }
     ]
   });
 
   const setShow = result => {
-    if (state.series.some(entry => entry.name === result.date)) {
-      alert('Result was already added la dey');
+    let name = `${result.date.substring(0, 10)} [${result.date.substring(
+      11,
+      19
+    )}]`;
+    if (state.series.some(entry => entry.name === name)) {
+      setAlert('Result was already added to graph!', 'danger');
       return;
     }
     setState({
@@ -89,7 +121,7 @@ const PatientDetails = props => {
       series: [
         ...state.series,
         {
-          name: result.date,
+          name: name,
           type: 'line',
           data: result.timings
         }
@@ -107,7 +139,10 @@ const PatientDetails = props => {
                 {patientViewed ? (
                   <div>
                     <Fragment>
-                      <div className="container" style={{paddingTop:"32px",paddingBottom:"32px"}}>
+                      <div
+                        className="container"
+                        style={{ paddingTop: '32px', paddingBottom: '32px' }}
+                      >
                         <button
                           type="button"
                           className="btn btn-info"
@@ -116,7 +151,14 @@ const PatientDetails = props => {
                         >
                           Back
                         </button>
-                        <h1><strong><span className="text-info">{patientViewed.name}</span> TMT Result </strong></h1>
+                        <h1>
+                          <strong>
+                            <span className="text-info">
+                              {patientViewed.name}'s
+                            </span>{' '}
+                            Results
+                          </strong>
+                        </h1>
                       </div>
                     </Fragment>
                     <Fragment>
@@ -134,8 +176,14 @@ const PatientDetails = props => {
                                 result={result}
                                 showDelete={false}
                               ></ResultItem>
-                              <div className="container text-center" style={{paddingTop:"16px",paddingBottom:"32px"}}>
-                                <button 
+                              <div
+                                className="container text-center"
+                                style={{
+                                  paddingTop: '16px',
+                                  paddingBottom: '32px'
+                                }}
+                              >
+                                <button
                                   className="btn btn-success btn-sm"
                                   onClick={() => {
                                     setShow(result);

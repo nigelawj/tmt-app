@@ -85,7 +85,7 @@ const Game = () => {
           }}
         >
           <strong>
-            Average Completion Time :<br></br>29s
+            Average Completion Time :<br></br>29s (29000ms)
           </strong>
         </div>
         <div
@@ -97,7 +97,7 @@ const Game = () => {
           }}
         >
           <strong>
-            Deficiency is suspected :<br></br>>78s
+            Deficiency is suspected :<br></br>>78s (78000ms)
           </strong>
         </div>
         <div
@@ -109,7 +109,7 @@ const Game = () => {
           }}
         >
           <strong>
-            Most common completion timing :<br></br>90s
+            Most common completion timing :<br></br>90s (90000ms)
           </strong>
         </div>
       </div>

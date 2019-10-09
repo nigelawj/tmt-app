@@ -1,14 +1,19 @@
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 
 import ResultItem from './ResultItem';
-import ResultsContext from '../../context/results/resultsContext';
-import Spinner from '../layout/Spinner';
 
+import ResultsContext from '../../context/results/resultsContext';
+import AlertContext from '../../context/alert/alertContext';
+
+import Spinner from '../layout/Spinner';
 import Chart from 'react-apexcharts';
 
 const Results = () => {
   const resultsContext = useContext(ResultsContext);
   const { results, getResults, loading } = resultsContext;
+
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
 
   const [state, setState] = useState({
     options: {
@@ -40,8 +45,7 @@ const Results = () => {
           '21-22',
           '22-23',
           '23-24',
-          '24-25',
-          '25-END'
+          '24-25'
         ]
       },
       markers: {
@@ -86,8 +90,7 @@ const Results = () => {
           1324,
           1421,
           1126,
-          1311,
-          802
+          1311
         ]
       }
     ]
@@ -99,8 +102,12 @@ const Results = () => {
   }, []);
 
   const setShow = result => {
-    if (state.series.some(entry => entry.name === result.date)) {
-      alert('Result was already added la dey');
+    let name = `${result.date.substring(0, 10)} [${result.date.substring(
+      11,
+      19
+    )}]`;
+    if (state.series.some(entry => entry.name === name)) {
+      setAlert('Result was already added to graph!', 'danger');
       return;
     }
     setState({
@@ -108,7 +115,7 @@ const Results = () => {
       series: [
         ...state.series,
         {
-          name: result.date,
+          name: name,
           type: 'line',
           data: result.timings
         }

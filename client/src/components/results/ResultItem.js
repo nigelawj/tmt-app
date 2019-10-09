@@ -40,7 +40,7 @@ const ResultItem = ({ result, showDelete }) => {
         </h4>
         {name ? (
           <p className="card-text" style={{ color: '#fff' }}>
-            Date: {date}
+            Date: {`${result.date.substring(0, 10)} [${result.date.substring(11, 19)}]`}
           </p>
         ) : (
           ''
@@ -65,7 +65,8 @@ const ResultItem = ({ result, showDelete }) => {
             <div className="row">
               {timings.map((timing, i) => (
                 <div className="col-sm-4" key={i}>
-                  Node {i + 1} : {timing}
+                  Node {i + 1 + 1} : {timing}{' '}
+                  {/* + 1 because 0-based index, + another 1 because to node i; first line is from node 1 to 2 */}
                 </div>
               ))}
             </div>

@@ -39,21 +39,11 @@ const ResultsState = props => {
     };
 
     // Create Timings Array
-    
-    // let temp = null;
-    // let timings = [];
-    // for (let i = 1; i < rawTimings.length; i++) {
-    //   temp = rawTimings[i] - rawTimings[i - 1];
-    //   timings[i-1] = {
-    //     x: i,
-    //     y: temp
-    //   }
-    // }
     let timings = [];
     for (let i = 1; i < rawTimings.length; i++) {
-      timings[i-1] = rawTimings[i] - rawTimings[i - 1];
+      timings[i - 1] = rawTimings[i] - rawTimings[i - 1];
     }
-    let totalTime = rawTimings[rawTimings.length-1] - rawTimings[0];
+    let totalTime = rawTimings[rawTimings.length - 1] - rawTimings[0];
 
     try {
       if (isAuthenticated) {
