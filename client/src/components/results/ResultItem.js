@@ -40,7 +40,7 @@ const ResultItem = ({ result, showDelete }) => {
         </h4>
         {name ? (
           <p className="card-text" style={{ color: '#fff' }}>
-            Date: {`${result.date.substring(0, 10)} [${result.date.substring(11, 19)}]`}
+            Date: {`${date.substring(0, 10)} [${date.substring(11, 19)}]`}
           </p>
         ) : (
           ''

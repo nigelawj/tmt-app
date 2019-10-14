@@ -2,7 +2,7 @@ import {
   GET_RESULTS,
   ADD_RESULT,
   DELETE_RESULT,
-  EXPORT_RESULT,
+  // EXPORT_RESULT,
   CLEAR_RESULTS,
   RESULT_ERROR
 } from '../types';

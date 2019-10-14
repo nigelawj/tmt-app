@@ -2,7 +2,7 @@
 export const GET_RESULTS = 'GET_RESULTS';
 export const ADD_RESULT = 'ADD_RESULT';
 export const DELETE_RESULT = 'DELETE_RESULT';
-export const EXPORT_RESULT = 'EXPORT_RESULT';
+// export const EXPORT_RESULT = 'EXPORT_RESULT';
 export const CLEAR_RESULTS = 'CLEAR_RESULTS';
 export const RESULT_ERROR = 'RESULT_ERROR';
 

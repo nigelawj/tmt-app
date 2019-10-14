@@ -106,7 +106,7 @@ const Register = props => {
           >
             <h3>
               <strong>
-                Account <span className="text-info">Register</span>
+                Account <span className="text-info">Registration</span>
               </strong>
             </h3>
           </div>
