@@ -1,17 +1,13 @@
 import React, { Fragment } from 'react';
-import './App.css';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/layout/Navbar';
 import Alerts from './components/layout/Alerts';
-
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Game from './components/pages/Game';
 import PatientDetails from './components/list/PatientDetails';
 import Doctors from './components/list/Doctors';
-
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 
@@ -20,6 +16,8 @@ import GameState from './context/game/GameState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
 import ListState from './context/list/ListState';
+
+import './App.css';
 
 import PrivateRoute from './components/routing/PrivateRoute';
 

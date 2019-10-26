@@ -57,14 +57,14 @@ const About = () => {
       >
         <h2>Trail Making Test</h2>
         <p className="w3-opacity">
-          <i>What is TMT?</i>
+          <i>What is a TMT?</i>
         </p>
         <p className="w3-justify">
           The Trail Making Test is a neuropsychological test of visual attention
           and task switching. It consists of two parts in which the subject is
           instructed to connect a set of 25 dots as quickly as possible while
           still maintaining accuracy. It is sensitive to detecting cognitive
-          impairment associated with dementia, for example, Alzheimer's disease.
+          impairment associated with dementia; for example, Alzheimer's disease.
         </p>
         <br></br>
         <br></br>
@@ -87,7 +87,7 @@ const About = () => {
         style={{ backgroundColor: '#b0e2ff' }}
       >
         <h5>Step 1</h5>
-        <p>Take TMT Online</p>
+        <p>Take the TMT25 Test</p>
         <br></br>
         <Link to="/game">
           <button type="button" className="btn btn-dark">
@@ -100,7 +100,7 @@ const About = () => {
         style={{ backgroundColor: '#FCE2DC' }}
       >
         <h5>Step 2</h5>
-        <p>See Doctor with TMT Result</p>
+        <p>Consult a doctor</p>
         <br></br>
         <Link to="/doctors">
           <button type="button" className="btn btn-dark">
@@ -119,7 +119,7 @@ const About = () => {
         style={{ maxWidth: '1100px' }}
       >
         <br></br>
-        <p>@ 2019 TMT 25 by Group 3+</p>
+        <p>© 2019 TMT 25 by Group 3+</p>
       </div>
     </Fragment>
     /*  

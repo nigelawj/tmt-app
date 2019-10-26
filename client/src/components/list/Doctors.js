@@ -33,7 +33,7 @@ const Doctors = () => {
       >
         <div className="container">
           <h1>Find Doctors</h1>
-          <h6 style={{ color: '#777' }}>Wanted to Get Diagnosed?</h6>
+          <h6 style={{ color: '#777' }}>Want to Get Diagnosed?</h6>
           <p>
             TMT25 provides a list of registered doctors. Users should speak with
             a doctor regarding any concerns.
@@ -43,7 +43,7 @@ const Doctors = () => {
             <br></br>
             <br></br>
             You are <strong>highly encouraged</strong> to contact the doctor to
-            make an appointment before sharing confidential information.
+            make an appointment before sharing any confidential information.
           </p>
           <Filter filterType="doctors"></Filter>
         </div>

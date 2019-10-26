@@ -32,7 +32,7 @@ const Home = () => {
                 <h1>View Patients</h1>
                 <h6 style={{color:"#777"}}>View patients' details here</h6>   
                 <br></br>
-                <p>TMT 25 allows you to monitor your patients' data!</p> 
+                <p>Monitor your patients' data!</p> 
               </div>
             </div>
             <div className="container text-center" style={{paddingTop:"16px", paddingBottom:"32px"}}>
