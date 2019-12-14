@@ -1,6 +1,9 @@
 # tmt-app
 TMT25 - Test application for the development of a Trail Making Test, a neuropsychological test to help determine if a subject has dementia.
 
+The contents of this Git Repository consist of all files up to the preparation for deployment on Heroku.
+The production build can be found hosted [here](https://serene-beach-06053.herokuapp.com/)
+
 # Running the application
 Node.JS is required. 
 
