@@ -11,4 +11,8 @@ Node.JS is required.
 2) cd into client folder and run 'npm install' again to install client dependencies.
 3) To test in a development environment, run 'npm run dev' in the main folder to load a custom script.
 
+# Notes
+- 'dotenv' instead of 'config' should be used to handle env. variables
+- config files containing MongoURI are not commited; config files (default.json) will need to be created
+
 Thank you TraversyMedia for guiding me alongside the development of this app!
