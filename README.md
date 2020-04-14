@@ -13,6 +13,6 @@ Node.JS is required.
 
 # Notes
 - 'dotenv' instead of 'config' should be used to handle env. variables
-- config files containing MongoURI are not commited; config files (default.json) will need to be created
+- config files containing MongoURI are not commited; swap to dotenv and use process.env.MONGO_URI, which can be set as a Heroku env. var as well (TO-DO)
 
 Thank you TraversyMedia for guiding me alongside the development of this app!
