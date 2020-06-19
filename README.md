@@ -2,7 +2,7 @@
 TMT25 - Test application for the development of a Trail Making Test, a neuropsychological test to help determine if a subject has dementia.
 
 The contents of this Git Repository consist of all files up to the preparation for deployment on Heroku.
-The production build can be found hosted [here](https://serene-beach-06053.herokuapp.com/)
+The production build can be found hosted [here](https://tmt-app.herokuapp.com/)
 
 # Running the application
 Node.JS is required. 
@@ -12,7 +12,6 @@ Node.JS is required.
 3) To test in a development environment, run 'npm run dev' in the main folder to load a custom script.
 
 # Notes
-- 'dotenv' instead of 'config' should be used to handle env. variables
-- config files containing MongoURI are not commited; swap to dotenv and use process.env.MONGO_URI, which can be set as a Heroku env. var as well (TO-DO)
+Performance issues are to be expected as the application is not optimised, as well as hosted on Heroku which causes long loading times if application is first spun up.
 
 Thank you TraversyMedia for guiding me alongside the development of this app!
